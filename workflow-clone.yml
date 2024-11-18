@@ -3,11 +3,6 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  environment:
-     CONTROLLER_HOST: 10.28.77.73
-     CONTROLLER_USERNAME: admin
-     CONTROLLER_PASSWORD: W@intel9?
-     CONTROLLER_VERIFY_SSL: False
   vars:
     remove_nodes:
       - 7c7f1f01-91db-48f5-aafe-83fb9712ef2e
