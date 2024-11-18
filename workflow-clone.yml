@@ -1,0 +1,26 @@
+---
+- name: Export Workflow
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  environment:
+     CONTROLLER_HOST: 10.28.77.73
+     CONTROLLER_USERNAME: admin
+     CONTROLLER_PASSWORD: W@intel9?
+     CONTROLLER_VERIFY_SSL: False
+  vars:
+    remove_nodes:
+      - 7c7f1f01-91db-48f5-aafe-83fb9712ef2e
+      - 92e34f7d-e3f6-486d-9cc0-81ad23d6d908
+  tasks:
+  - name: Copy Workflow
+    awx.awx.workflow_job_template:
+      name: 'Linux_Workflow-copy'
+      copy_from: 'Linux_Workflow'
+
+  - name: Remove Nodes
+    awx.awx.workflow_job_template_node:
+      identifier: "{{ item }}"
+      workflow: Linux_Workflow-copy
+      state: absent
+    loop: "{{ remove_nodes }}"
